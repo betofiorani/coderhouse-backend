@@ -16,5 +16,11 @@
 		"price": 400,
 		"thumbnail": "soyElMismoThumb",
 		"id": 4
+	},
+  {
+		"title": "Cinta métrica",
+		"price": 1000,
+		"thumbnail": "soyElMismoThumb",
+		"id": 5
 	}
 ]
