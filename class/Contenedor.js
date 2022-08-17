@@ -24,7 +24,7 @@ class Contenedor {
         const id = maxId + 1
         const { title, price, thumbnail } = productData
         
-        const newProduct = {title,price,thumbnail,id}
+        const newProduct = {title,price: price*1,thumbnail,id}
 
         products.push(newProduct)
         
@@ -117,6 +117,7 @@ class Contenedor {
 
     const {id} = req.params
     const newData = req.body
+    
     try {
         
       const products = fs.existsSync(`${path}${this.fileName}`) ? await JSON.parse(await fs.promises.readFile(`${path}${this.fileName}`, 'utf-8')) : []

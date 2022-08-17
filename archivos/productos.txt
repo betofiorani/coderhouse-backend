@@ -17,10 +17,22 @@
 		"thumbnail": "soyElMismoThumb",
 		"id": 4
 	},
-  {
+	{
 		"title": "Cinta métrica",
-		"price": 1000,
+		"price": 5000,
 		"thumbnail": "soyElMismoThumb",
 		"id": 5
+	},
+	{
+		"title": "Bolsa de Cemento",
+		"price": 1000,
+		"thumbnail": "soylaBolsaThumb",
+		"id": 6
+	},
+	{
+		"title": "cal viva",
+		"price": 900,
+		"thumbnail": "calViva",
+		"id": 7
 	}
 ]
