@@ -1,0 +1,32 @@
+[
+	{
+		"title": "perro peluche",
+		"price": 400,
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_vlc_media_player-128.png",
+		"id": 8
+	},
+	{
+		"title": "diskette 3 1/2 - antigüedad",
+		"price": 200000,
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_total_commander-128.png",
+		"id": 9
+	},
+	{
+		"title": "google mail",
+		"price": 54000,
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_gmail-128.png",
+		"id": 10
+	},
+	{
+		"title": "Manzana",
+		"price": 50,
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_apple_ios-128.png",
+		"id": 11
+	},
+	{
+		"title": "diamante naranja",
+		"price": 2342342,
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_sketch_app-128.png",
+		"id": 12
+	}
+]
