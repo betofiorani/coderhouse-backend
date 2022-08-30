@@ -1,0 +1,56 @@
+[
+	{
+		"title": "perro peluche",
+		"price": 400,
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_vlc_media_player-128.png",
+		"id": 8
+	},
+	{
+		"title": "diskette 3 1/2 - antigüedad",
+		"price": 200000,
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_total_commander-128.png",
+		"id": 9
+	},
+	{
+		"title": "google mail",
+		"price": 54000,
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_gmail-128.png",
+		"id": 10
+	},
+	{
+		"title": "Manzana",
+		"price": 50,
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_apple_ios-128.png",
+		"id": 11
+	},
+	{
+		"title": "Diamante Naranja",
+		"price": 450000,
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_sketch_app-128.png",
+		"id": 12
+	},
+	{
+		"title": "Pingüino en extinción",
+		"price": 405300,
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_linux-128.png",
+		"id": 13
+	},
+	{
+		"title": "hola",
+		"price": 50,
+		"thumbnail": "",
+		"id": 14
+	},
+	{
+		"title": "chau",
+		"price": 500,
+		"thumbnail": "",
+		"id": 15
+	},
+	{
+		"title": "charky crack",
+		"price": 1000000,
+		"thumbnail": "",
+		"id": 16
+	}
+]
