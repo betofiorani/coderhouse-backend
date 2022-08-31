@@ -1,6 +1,7 @@
 import express from "express";
 import productRouter from "./src/router/productRouter.js";
 import chatRouter from "./src/router/chatRouter.js";
+import templateRouter from "./src/router/templateRouter.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import {Server as ServerIO} from 'socket.io'
@@ -41,4 +42,5 @@ app.set('view engine', 'ejs')
 
 app.use('/api/productos', productRouter)
 app.use('/api/chat', chatRouter)
+app.use('/api/template', templateRouter)
 

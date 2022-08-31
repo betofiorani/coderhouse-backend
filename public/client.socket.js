@@ -7,7 +7,7 @@ socket.on('server:products', products => {
 
 const renderProducts = async products => {
     
-    const response = await fetch('../products.ejs')
+    const response = await fetch('template/products')
     const plantilla = await response.text()
 
     const html = ejs.render(plantilla, {productos: products})
@@ -21,7 +21,7 @@ socket.on('server:messages', messages => {
 })
 
 const renderMessages = async messages => {
-  const response = await fetch('../messages.ejs')
+  const response = await fetch('template/messages')
   const plantilla = await response.text()
 
   const html = ejs.render(plantilla, {messages: messages})
