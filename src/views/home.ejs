@@ -8,13 +8,13 @@
     <title>Document</title>
 </head>
 <body style="background-color: gray; padding-top: 10px; width: 100%; display: flex;">
-  <div style="background-color: white; width: 40%; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+  <div style="background-color: white; width: 40%; margin: 0 auto; display: flex; flex-direction: column; align-items: center; padding-bottom: 18px;">
     <%- include('formChat',{}) %>
     <div style="margin: 0; padding:0; width: 100%;" id="messages">
       <%- include('messages',{messages: messages}) %>
     </div>
   </div>  
-  <div style="background-color: white; width: 40%; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+  <div style="background-color: white; width: 40%; margin: 0 auto; display: flex; flex-direction: column; align-items: center; padding-bottom: 18px;">
     <%- include('formNewProduct',{}) %>
     <div style="margin: 0; padding:0; width: 100%;" id="productos">
       <%- include('products',{productos: productos}) %>
