@@ -21,6 +21,7 @@ socket.on('server:messages', messages => {
 })
 
 const renderMessages = async messages => {
+
   const response = await fetch('template/messages')
   const plantilla = await response.text()
 
