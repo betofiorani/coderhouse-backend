@@ -1,80 +1,64 @@
-import fs from "fs"
-
-const path = "./archivos/"
-
+import knex from 'knex'
 class Contenedor {
-  constructor(fileName){
-    this.fileName = fileName
+  constructor(configDB, tableName){
+    this.config = configDB
+    this.tableName = tableName
   }
+
   save = async req => {
 
     const productData = req.body
 
     try{
 
-        const products = fs.existsSync(`${path}${this.fileName}`) ? await JSON.parse(await fs.promises.readFile(`${path}${this.fileName}`, 'utf-8')) : []
-        
-        let maxId = 0
-
-        products.forEach(product => {
-          maxId = product.id
-          maxId > product.id ? maxId = product.id : "" 
-        })
-
-        const id = maxId + 1
         const { title, price, thumbnail } = productData
         
-        const newProduct = {title,price: price*1,thumbnail,id}
+        const newProduct = {title, price: price*1,thumbnail}
 
-        products.push(newProduct)
+        await knex(this.config)(this.tableName).insert(newProduct)
         
-        await fs.promises.writeFile(`${path}${this.fileName}`, JSON.stringify(products, null, "\t"))
+        console.log("producto agregado!")
+        knex(this.config).destroy()
         
         return newProduct
         
     } 
     catch(error) {
-        console.log(`Ocurrió un error al guardar el producto. El error es: ${error}`)
+      console.log(`Ocurrió un error al guardar el producto. El error es: ${error}`)
+      knex(this.config).destroy()
     }
   } 
+
   getById = async req => {
 
     const {id} = req.params
 
     try{
       
-      const products = fs.existsSync(`${path}${this.fileName}`) ? await JSON.parse(await fs.promises.readFile(`${path}${this.fileName}`, 'utf-8')) : []        
-      const productFiltered = products.filter(product => product.id == id)
-      
-      return productFiltered.length > 0 ? productFiltered : {error: `Producto con id ${id} no encontrado`}
+      const product = await knex(this.config).from(this.tableName).select('*').where({id: id})        
+      console.log(product)
+      knex(this.config).destroy()
+      return product.length > 0 ? product : {error: `Producto con id ${id} no encontrado`}
     }
     catch (error){
-        console.log(`Ocurrió un error al leer archivo. El error fue: ${error}`)
+      console.log(`Ocurrió un error al leer archivo. El error fue: ${error}`)
+      knex(this.config).destroy()
     }
 
   }
-  getRamdomProduct = async () => {
+  
+  getAll = async () => {
 
     try{
       
-      const products = fs.existsSync(`${path}${this.fileName}`) ? await JSON.parse(await fs.promises.readFile(`${path}${this.fileName}`, 'utf-8')) : []
-      const idAleatorio = Math.floor(Math.random()*(products.length))
-      return products.length > 0 ? products[idAleatorio] : "No se encontró ningún producto"
-      
+      const products = await knex(this.config).from(this.tableName).select('*')        
+      console.log(products)
+      knex(this.config).destroy()
+      return products
     }
     catch (error){
-        console.log(`Ocurrió un error al leer archivo. El error fue: ${error}`)
-    }
-
-  }
-  getAll = async () => {
-
-    try {      
-      const products = fs.existsSync(`${path}${this.fileName}`) ? await JSON.parse(await fs.promises.readFile(`${path}${this.fileName}`, 'utf-8')) : []
-      return products
-    } 
-    catch (error) {
-        console.log(`Ocurrió un error al leer archivo. El error fue: ${error}`)
+      console.log(`Ocurrió un error al leer archivo. El error fue: ${error}`)
+      knex(this.config).destroy()
     }
 
   }
@@ -83,34 +67,16 @@ class Contenedor {
     const {id} = req.params
 
     try {
-      
-      const products = fs.existsSync(`${path}${this.fileName}`) ? await JSON.parse(await fs.promises.readFile(`${path}${this.fileName}`, 'utf-8')) : []
-        
-      const filterProducts = products.filter(product => product.id != id)
-      
-      await fs.promises.unlink(`${path}${this.fileName}`)
-      await fs.promises.writeFile(`${path}${this.fileName}`, JSON.stringify(filterProducts, null, "\t"))
-      
+      await knex(this.config)(this.tableName).where({id:id}).del()
+      knex(this.config).destroy()
+
       return `El producto con id: ${id} fue eliminado correctamente`
     } 
     catch (error) {
-        console.log(`Ocurrió un error al leer archivo. El error fue: ${error}`)
+      console.log(`Ocurrió un error al leer archivo. El error fue: ${error}`)
+      knex(this.config).destroy()
     }
 
-  }
-  deleteAll = async () => {
-    try {
-
-      const products = []
-
-      await fs.promises.unlink(`${path}${this.fileName}`)
-      await fs.promises.writeFile(`${path}${this.fileName}`, JSON.stringify(products, null, "\t"))
-      
-      return "Todos los productos se eliminaron correctamente"
-    } 
-    catch (error) {
-        console.log(`Ocurrió un error al eliminar el archivo. El error fue: ${error}`)
-    }
   }
 
   modifyById = async req =>{
@@ -118,22 +84,24 @@ class Contenedor {
     const {id} = req.params
     const newData = req.body
     
-    try {
-        
-      const products = fs.existsSync(`${path}${this.fileName}`) ? await JSON.parse(await fs.promises.readFile(`${path}${this.fileName}`, 'utf-8')) : []
-        
-        const filterProducts = products.map(product => product.id == id ? {...newData, id: product.id} : product)
-        const productUpdated = filterProducts.filter(product => product.id == id)
+    try{
 
-        await fs.promises.writeFile(`${path}${this.fileName}`, JSON.stringify(filterProducts, null, "\t"))
+      const { title, price, thumbnail } = newData
+      
+      const product = {title, price: price*1, thumbnail}
 
-        console.log("Productos Disponibles luego de la modificación: ",filterProducts)
-
-        return productUpdated
+      await knex(this.config)(this.tableName).where({id: id}).update(product)
+      
+      console.log("producto agregado!")
+      knex(this.config).destroy()
+      
+      return product
         
-      } catch (error) {
-          console.log(`Ocurrio un error al leer archivo. El error fue: ${error}`)
-      }
+    } 
+    catch(error) {
+      console.log(`Ocurrió un error al guardar el producto. El error es: ${error}`)
+      knex(this.config).destroy()
+    }
   }
 }
 
