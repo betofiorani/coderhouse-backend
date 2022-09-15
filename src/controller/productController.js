@@ -1,13 +1,17 @@
 import Contenedor from '../model/Contenedor.js'
 import Chat from '../model/Chat.js'
+import { config as productConfig } from '../database/productosDatabaseMysql.js'
+import { configSQLite3 as chatConfig } from '../database/chatDatabaseSqlite3.js'
 
-const contenedor = new Contenedor("productos.txt")
-const chat = new Chat("chat.txt")
+const contenedor = new Contenedor(productConfig, 'productos')
+const chat = new Chat(chatConfig, 'chat')
 
 const getAllProducts = async (req, res) => {
   const {io} = req
   try {
       const products = await contenedor.getAll()
+
+      console.log("desde controller", products)
       const messages = await chat.getAll()
       
       io.sockets.emit("server:products",products)

@@ -1,47 +1,42 @@
-import fs from "fs"
-
-const path = "./archivos/"
-
+import knex from 'knex'
 class Chat {
-  constructor(fileName){
-    this.fileName = fileName
+  constructor(configDB, tableName){
+    this.config = configDB
+    this.tableName = tableName
   }
   save = async req => {
-    console.log("desde save",this.fileName)
+
     const {userEmail, message} = req.body
 
     try{
 
-        console.log("prueba1",fs.existsSync(`${path}${this.fileName}`))
+      const date = new Date()
+      const date_formated = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
+      const newMessage = {userEmail, message, date: date_formated}
 
-        const messages = fs.existsSync(`${path}${this.fileName}`) ? await JSON.parse(await fs.promises.readFile(`${path}${this.fileName}`, 'utf-8')) : []
-        console.log("desde try catch", messages)
-        const date = new Date()
-        const date_formated = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
-        const newMessage = {userEmail,message,date: date_formated}
-
-        messages.push(newMessage)
-        
-        console.log("messages")
-
-        await fs.promises.writeFile(`${path}${this.fileName}`, JSON.stringify(messages, null, "\t"))
-        
-        return newMessage
+      await knex(this.config)(this.tableName).insert(newMessage)
+      console.log("chat registrado!")
+      knex(this.config).destroy()
+                
+      return newMessage
         
     } 
     catch(error) {
         console.log(`Ocurrió un error al guardar el producto. El error es: ${error}`)
+        knex(this.config).destroy()
     }
   } 
   
   getAll = async () => {
 
     try {      
-      const messages = fs.existsSync(`${path}${this.fileName}`) ? await JSON.parse(await fs.promises.readFile(`${path}${this.fileName}`, 'utf-8')) : []
+      const messages = await knex(this.config).from(this.tableName).select('userEmail', 'message','date')
+      knex(this.config).destroy()
       return messages
     } 
     catch (error) {
-        console.log(`Ocurrió un error al leer archivo. El error fue: ${error}`)
+      console.log(`Ocurrió un error al leer archivo. El error fue: ${error}`)
+      knex(this.config).destroy()
     }
 
   }
